@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 export interface ArticleData {
   title: string;
@@ -49,12 +49,22 @@ export async function editArticle(page: Page, slug: string, updates: Partial<Art
 
 export async function deleteArticle(page: Page) {
   // Assumes we're already on the article page
+  const slug = page.url().split('/article/')[1];
   const deleteReq = page.waitForResponse(
     resp => resp.request().method() === 'DELETE' && resp.url().includes('/api/articles/'),
   );
   await page.click('button:has-text("Delete Article")');
-  await deleteReq;
+  const resp = await deleteReq;
+  expect(resp.status()).toBe(204);
   await page.goto('/', { waitUntil: 'load' });
+
+  // Confirm backend deletion (avoids flakiness due to UI caching/pagination).
+  await expect
+    .poll(async () => {
+      const getResp = await page.request.get(`/api/articles/${slug}`);
+      return getResp.status();
+    })
+    .toBe(404);
 }
 
 export async function favoriteArticle(page: Page) {

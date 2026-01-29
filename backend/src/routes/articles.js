@@ -219,7 +219,13 @@ router.delete('/articles/:slug', authRequired, async (req, res, next) => {
     if (!existing) return res.status(404).json({ errors: { body: ['Article not found'] } });
     if (existing.authorId !== req.user.id) return res.status(403).json({ errors: { body: ['Forbidden'] } });
 
-    await prisma.article.delete({ where: { id: existing.id } });
+    // SQLite relations are "restrict" by default; delete dependent rows first to avoid FK errors.
+    await prisma.$transaction([
+      prisma.favorite.deleteMany({ where: { articleId: existing.id } }),
+      prisma.comment.deleteMany({ where: { articleId: existing.id } }),
+      prisma.articleTag.deleteMany({ where: { articleId: existing.id } }),
+      prisma.article.delete({ where: { id: existing.id } }),
+    ]);
     return res.status(204).send();
   } catch (err) {
     return next(err);
