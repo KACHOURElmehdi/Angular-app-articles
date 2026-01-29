@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  email        String    @unique
+  passwordHash String
+  bio          String    @default("")
+  image        String    @default("")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  articles  Article[]
+  comments  Comment[]
+  favorites Favorite[]
+
+  following Follow[] @relation("userFollowing")
+  followers Follow[] @relation("userFollowers")
+}
+
+model Article {
+  id        Int            @id @default(autoincrement())
+  slug      String         @unique
+  title     String
+  description String       @default("")
+  body      String
+  status    String         @default("draft")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  author   User    @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  tags       ArticleTag[]
+  comments   Comment[]
+  favorites  Favorite[]
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  articles ArticleTag[]
+}
+
+model ArticleTag {
+  articleId Int
+  tagId     Int
+
+  article Article @relation(fields: [articleId], references: [id])
+  tag     Tag     @relation(fields: [tagId], references: [id])
+
+  @@id([articleId, tagId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  article   Article @relation(fields: [articleId], references: [id])
+  articleId Int
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
+model Favorite {
+  userId    Int
+  articleId Int
+
+  user    User    @relation(fields: [userId], references: [id])
+  article Article @relation(fields: [articleId], references: [id])
+
+  @@id([userId, articleId])
+}
+
+model Follow {
+  followerId Int
+  followingId Int
+
+  follower User @relation("userFollowing", fields: [followerId], references: [id])
+  following User @relation("userFollowers", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
+}
