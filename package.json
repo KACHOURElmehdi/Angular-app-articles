@@ -22,6 +22,9 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "test:e2e:disabled": "cat e2e/DISABLED_TESTS.md",
+    "load:smoke": "k6 run load/k6/smoke.js",
+    "load:read": "k6 run load/k6/articles-read.js",
+    "load:write": "k6 run load/k6/articles-write.js",
     "format": "prettier --write \"**/*.{ts,html,css,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,html,css,json,md}\"",
     "prepare": "husky install"
