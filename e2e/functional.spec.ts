@@ -34,7 +34,7 @@ async function waitForApiReady() {
   const api = await request.newContext({ baseURL: API_BASE });
   for (let i = 0; i < 90; i++) {
     try {
-    const res = await api.get('/api/tags');
+      const res = await api.get('/api/tags');
       if (res.ok()) {
         await api.dispose();
         return;
