@@ -1,0 +1,9 @@
+.angular/
+node_modules/
+backend/node_modules/
+dist/
+coverage/
+Angular-app-articles/
+playwright-report/
+test-results/
+backend/prisma/

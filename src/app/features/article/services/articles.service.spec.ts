@@ -230,7 +230,7 @@ describe('ArticlesService', () => {
       };
 
       // Simulate create
-      service.create(newArticle).subscribe((article) => {
+      service.create(newArticle).subscribe(article => {
         expect(article.title).toBe('Test Article');
         expect(article.body).toBe('Test Body');
       });
@@ -240,7 +240,7 @@ describe('ArticlesService', () => {
       req.flush({ article: { ...newArticle, slug: 'test-article', author: {}, createdAt: '', updatedAt: '' } });
 
       // Simulate get
-      service.get('test-article').subscribe((article) => {
+      service.get('test-article').subscribe(article => {
         expect(article.slug).toBe('test-article');
         expect(article.title).toBe('Test Article');
       });

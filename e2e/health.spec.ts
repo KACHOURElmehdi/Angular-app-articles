@@ -12,7 +12,7 @@ test.describe('Health Checks', () => {
   });
 
   test('API should be accessible', async ({ request }) => {
-    const response = await request.get('https://api.realworld.show/api/tags');
+    const response = await request.get('http://127.0.0.1:3000/api/tags');
     expect(response.ok()).toBeTruthy();
   });
 

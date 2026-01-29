@@ -23,6 +23,15 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Install backend dependencies
+      run: npm ci
+      working-directory: backend
+
+    - name: Prepare database (Prisma push + seed)
+      run: |
+        npm run backend:db
+        npm run backend:seed
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium
 

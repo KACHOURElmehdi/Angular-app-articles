@@ -11,11 +11,10 @@ export default defineConfig({
   workers: 1, // Run tests serially to avoid backend/state conflicts
   reporter: 'html',
 
-  // Fast timeouts for fast apps! Backend and Vite are blazing fast.
-  timeout: 15000, // 15s per test (default: 30s)
+  timeout: 120000, // allow server startup + API seeding
 
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL: 'http://127.0.0.1:4200',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
 
@@ -45,9 +44,9 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run start',
+    command: 'npm run start:full',
     url: 'http://localhost:4200',
     reuseExistingServer: !process.env.CI,
-    timeout: 120000,
+    timeout: 180000,
   },
 });

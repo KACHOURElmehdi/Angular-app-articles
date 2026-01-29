@@ -2,12 +2,16 @@
   <div class="article-page">
     <div class="banner">
       <div class="container">
-        <h1>{{ article.title }}</h1>
+        <h1 data-testid="article-title">{{ article.title }}</h1>
 
         <app-article-meta [article]="article">
           @if (canModify) {
             <span>
-              <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                [routerLink]="['/editor', article.slug]"
+                data-testid="article-edit"
+              >
                 <i class="ion-edit"></i> Edit Article
               </a>
 
@@ -15,6 +19,7 @@
                 class="btn btn-sm btn-outline-danger"
                 [ngClass]="{ disabled: isDeleting }"
                 (click)="deleteArticle()"
+                data-testid="article-delete"
               >
                 <i class="ion-trash-a"></i> Delete Article
               </button>
@@ -36,7 +41,7 @@
     <div class="container page">
       <div class="row article-content">
         <div class="col-md-12">
-          <div [innerHTML]="article.body | markdown | async"></div>
+          <div [innerHTML]="article.body | markdown | async" data-testid="article-body"></div>
 
           <ul class="tag-list">
             @for (tag of article.tagList; track tag) {

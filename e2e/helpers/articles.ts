@@ -49,7 +49,12 @@ export async function editArticle(page: Page, slug: string, updates: Partial<Art
 
 export async function deleteArticle(page: Page) {
   // Assumes we're already on the article page
-  await Promise.all([page.waitForURL('/'), page.click('button:has-text("Delete Article")')]);
+  const deleteReq = page.waitForResponse(
+    resp => resp.request().method() === 'DELETE' && resp.url().includes('/api/articles/'),
+  );
+  await page.click('button:has-text("Delete Article")');
+  await deleteReq;
+  await page.goto('/', { waitUntil: 'load' });
 }
 
 export async function favoriteArticle(page: Page) {

@@ -13,11 +13,12 @@
           }
         </p>
         <app-list-errors [errors]="errors" />
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()" data-testid="auth-form">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
               @if (authType === 'register') {
                 <input
+                  data-testid="auth-username"
                   formControlName="username"
                   placeholder="Username"
                   class="form-control form-control-lg"
@@ -26,17 +27,29 @@
               }
             </fieldset>
             <fieldset class="form-group">
-              <input formControlName="email" placeholder="Email" class="form-control form-control-lg" type="text" />
+              <input
+                data-testid="auth-email"
+                formControlName="email"
+                placeholder="Email"
+                class="form-control form-control-lg"
+                type="text"
+              />
             </fieldset>
             <fieldset class="form-group">
               <input
+                data-testid="auth-password"
                 formControlName="password"
                 placeholder="Password"
                 class="form-control form-control-lg"
                 type="password"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+            <button
+              data-testid="auth-submit"
+              class="btn btn-lg btn-primary pull-xs-right"
+              [disabled]="!authForm.valid"
+              type="submit"
+            >
               {{ title }}
             </button>
           </fieldset>

@@ -9,6 +9,7 @@
 /node_modules
 backend/node_modules
 backend/dev.db
+backend/**/*.db
 backend/prisma/migrations.sql
 backend/.env
 
@@ -47,6 +48,9 @@ yarn-error.log
 # Playwright
 /playwright-report/
 /test-results/
+
+# Duplicate workspace copy (should not be committed)
+/Angular-app-articles/
 
 # System Files
 .DS_Store

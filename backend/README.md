@@ -3,6 +3,7 @@
 Minimal RealWorld-compatible API used by the Angular frontend. Lives entirely in `backend/` so the frontend stays untouched.
 
 ## Project Layout
+
 ```
 backend/
   .env.example        # sample environment
@@ -19,14 +20,16 @@ backend/
 ```
 
 ## Quick Start
-1) `cd backend`
-2) `cp .env.example .env` and set `JWT_SECRET` (and optional SSL paths below).
-3) `npm install`
-4) `npm run migrate`   # creates `dev.db` and generates Prisma client
-5) `npm run seed`      # optional: demo user + two articles
-6) `npm run dev`       # starts on port 3000 by default
+
+1. `cd backend`
+2. `cp .env.example .env` and set `JWT_SECRET` (and optional SSL paths below).
+3. `npm install`
+4. `npm run migrate` # creates `dev.db` and generates Prisma client
+5. `npm run seed` # optional: demo user + two articles
+6. `npm run dev` # starts on port 3000 by default
 
 ### Making the Angular app use this API (no frontend code changes)
+
 - Add `127.0.0.1 api.realworld.show` to your hosts file.
 - Generate a local cert (example):
   ```
@@ -39,12 +42,14 @@ backend/
 If HTTPS setup is inconvenient, temporarily change the Angular `api.interceptor.ts` base URL to `http://localhost:3000/api` while developing.
 
 ## Environment
+
 - `PORT` (default 3000)
 - `JWT_SECRET` (required)
 - `DATABASE_URL` (defaults to local SQLite `file:./dev.db`)
 - Optional `SSL_KEY_FILE` / `SSL_CERT_FILE` to serve HTTPS.
 
 ## Endpoints (JSON only, all under `/api`)
+
 - Auth: `POST /users` (register), `POST /users/login`, `GET /user`, `PUT /user`
   - Aliases: `/auth/register`, `/auth/login`, `/auth/me`
 - Profiles: `GET /profiles/:username`, `POST /profiles/:username/follow`, `DELETE /profiles/:username/follow`
@@ -62,11 +67,14 @@ If HTTPS setup is inconvenient, temporarily change the Angular `api.interceptor.
 Request shapes follow the RealWorld spec, e.g. `{ "user": {...} }`, `{ "article": {...} }`, `{ "comment": {...} }`.
 
 ## Seed Data
+
 After `npm run seed`, you get:
+
 - User: `demo@example.com` / `password` (token returned on login)
 - Two sample articles tagged with `angular`, `node`, `sqlite`
 
 ## Example cURL Calls
+
 ```bash
 # register
 curl -X POST http://localhost:3000/api/users \
@@ -96,6 +104,7 @@ curl -X POST http://localhost:3000/api/articles/your-slug/comments \
 ```
 
 ## Notes
+
 - Passwords are hashed with bcryptjs.
 - JWT is expected in `Authorization: Token <jwt>` or `Bearer <jwt>`.
 - Basic validation is in place; errors return `{ "errors": { "body": ["message"] } }`.

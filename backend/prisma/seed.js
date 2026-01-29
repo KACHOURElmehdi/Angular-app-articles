@@ -26,6 +26,16 @@ async function main() {
     },
   });
 
+  const johndoe = await prisma.user.create({
+    data: {
+      username: 'johndoe',
+      email: 'johndoe@example.com',
+      passwordHash,
+      bio: 'Sample author',
+      image: '',
+    },
+  });
+
   await prisma.tag.createMany({
     data: [{ name: 'angular' }, { name: 'node' }, { name: 'sqlite' }],
   });
@@ -59,6 +69,20 @@ async function main() {
       authorId: user.id,
       tags: {
         create: secondArticleTags.map(tag => ({ tag: { connect: { id: tag.id } } })),
+      },
+    },
+  });
+
+  await prisma.article.create({
+    data: {
+      slug: buildSlug('johndoe-first-article'),
+      title: "John's Article",
+      description: 'An article by johndoe',
+      body: 'This is a sample article seeded for social/follow tests.',
+      status: 'published',
+      authorId: johndoe.id,
+      tags: {
+        create: tags.map(tag => ({ tag: { connect: { id: tag.id } } })),
       },
     },
   });

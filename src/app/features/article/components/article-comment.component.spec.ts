@@ -19,10 +19,7 @@ describe('ArticleCommentComponent', () => {
   beforeAll(() => {
     // Initialize TestBed environment once for all tests
     try {
-      getTestBed().initTestEnvironment(
-        BrowserDynamicTestingModule,
-        platformBrowserDynamicTesting()
-      );
+      getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
     } catch (error) {
       // Already initialized, ignore
     }
@@ -57,10 +54,7 @@ describe('ArticleCommentComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ArticleCommentComponent],
-      providers: [
-        { provide: UserService, useValue: mockUserService },
-        provideRouter([]),
-      ],
+      providers: [{ provide: UserService, useValue: mockUserService }, provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ArticleCommentComponent);
@@ -192,8 +186,8 @@ describe('ArticleCommentComponent', () => {
     it('should return true when current user is comment author', () => {
       component.comment = mockComment;
 
-      return new Promise<void>((resolve) => {
-        component.canModify$.subscribe((canModify) => {
+      return new Promise<void>(resolve => {
+        component.canModify$.subscribe(canModify => {
           expect(canModify).toBe(true);
           resolve();
         });
@@ -209,8 +203,8 @@ describe('ArticleCommentComponent', () => {
 
       component.comment = mockComment;
 
-      return new Promise<void>((resolve) => {
-        component.canModify$.subscribe((canModify) => {
+      return new Promise<void>(resolve => {
+        component.canModify$.subscribe(canModify => {
           expect(canModify).toBe(false);
           resolve();
         });
@@ -223,8 +217,8 @@ describe('ArticleCommentComponent', () => {
 
       component.comment = mockComment;
 
-      return new Promise<void>((resolve) => {
-        component.canModify$.subscribe((canModify) => {
+      return new Promise<void>(resolve => {
+        component.canModify$.subscribe(canModify => {
           expect(canModify).toBe(false);
           resolve();
         });

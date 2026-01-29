@@ -8,6 +8,7 @@
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
               <input
+                data-testid="editor-title"
                 class="form-control form-control-lg"
                 formControlName="title"
                 type="text"
@@ -17,6 +18,7 @@
 
             <fieldset class="form-group">
               <input
+                data-testid="editor-description"
                 class="form-control"
                 formControlName="description"
                 type="text"
@@ -26,6 +28,7 @@
 
             <fieldset class="form-group">
               <textarea
+                data-testid="editor-body"
                 class="form-control"
                 formControlName="body"
                 rows="8"
@@ -36,6 +39,7 @@
 
             <fieldset class="form-group">
               <input
+                data-testid="editor-tags"
                 class="form-control"
                 type="text"
                 placeholder="Enter tags"
@@ -52,7 +56,12 @@
               </div>
             </fieldset>
 
-            <button class="btn btn-lg pull-xs-right btn-primary" type="button" (click)="submitForm()">
+            <button
+              data-testid="editor-submit"
+              class="btn btn-lg pull-xs-right btn-primary"
+              type="button"
+              (click)="submitForm()"
+            >
               Publish Article
             </button>
           </fieldset>
