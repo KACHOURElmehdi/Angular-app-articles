@@ -6,10 +6,9 @@ export function baseUrl() {
 }
 
 export function jsonHeaders(extra = {}) {
-  return {
+  return Object.assign({
     'Content-Type': 'application/json',
-    ...extra,
-  };
+  }, extra);
 }
 
 export function authHeaders(token) {
@@ -33,8 +32,8 @@ export function loginAndGetToken() {
     'login: has token': r => {
       try {
         const body = r.json();
-        return !!body?.user?.token;
-      } catch {
+        return !!(body && body.user && body.user.token);
+      } catch (e) {
         return false;
       }
     },

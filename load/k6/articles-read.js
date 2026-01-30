@@ -17,12 +17,12 @@ export function setup() {
 }
 
 export default function (data) {
-  const token = data?.token || null;
+  const token = (data && data.token) || null;
 
   const listRes = getArticles(token, 10, Math.floor(Math.random() * 20));
   const okList = check(listRes, {
     'articles list: 200': r => r.status === 200,
-    'articles list: has articles[]': r => Array.isArray(r.json()?.articles),
+    'articles list: has articles[]': r => { const json = r.json(); return Array.isArray(json && json.articles); },
   });
 
   if (!okList) {
@@ -31,7 +31,7 @@ export default function (data) {
   }
 
   const body = listRes.json();
-  const articles = body.articles || [];
+  const articles = (body && body.articles) || [];
   if (articles.length === 0) {
     sleep(1);
     return;
@@ -46,7 +46,7 @@ export default function (data) {
 
   check(detailRes, {
     'article detail: 200': r => r.status === 200,
-    'article detail: slug matches': r => r.json()?.article?.slug === slug,
+    'article detail: slug matches': r => { const json = r.json(); return json && json.article && json.article.slug === slug; },
   });
 
   sleep(1);

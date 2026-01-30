@@ -23,7 +23,7 @@ function uniqueTitle() {
 }
 
 export default function (data) {
-  const token = data?.token;
+  const token = (data && data.token) || null;
   if (!token) {
     sleep(1);
     return;
@@ -45,7 +45,7 @@ export default function (data) {
 
   const createdOk = check(createRes, {
     'create: 200': r => r.status === 200,
-    'create: has slug': r => !!r.json()?.article?.slug,
+    'create: has slug': r => { const json = r.json(); return !!(json && json.article && json.article.slug); },
   });
 
   if (!createdOk) {
