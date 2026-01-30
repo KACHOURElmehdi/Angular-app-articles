@@ -7,3 +7,8 @@ Angular-app-articles/
 playwright-report/
 test-results/
 backend/prisma/
+
+# Skip k6 load testing assets and docs from CI formatting
+load/
+documentation/K6_LOAD_TESTS.md
+documentation/K6_QUICK_REF.md

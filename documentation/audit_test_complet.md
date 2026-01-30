@@ -8,19 +8,20 @@
 
 ## 📋 1. Executive Summary
 
-| Point clé | Statut |
-|-----------|--------|
-| **Framework principal** | Angular 20.3.9 (frontend) + Express/Prisma (backend) |
-| **Unit tests** | Vitest pour frontend (10 fichiers, ~1700+ assertions) |
-| **E2E tests** | Playwright (7 fichiers, ~45 scénarios) |
-| **Backend tests** | Jest (2 fichiers, ~20 tests) |
-| **CI/CD** | GitHub Actions (2 workflows) |
-| **⚠️ GAP CRITIQUE** | **Les tests unitaires NE SONT PAS exécutés en CI** |
-| **⚠️ GAP CRITIQUE** | **Les tests backend NE SONT PAS exécutés en CI** |
-| **Coverage** | Configuré mais non requis/vérifié en CI |
-| **Tests de performance** | ❌ Absents |
+| Point clé                | Statut                                                |
+| ------------------------ | ----------------------------------------------------- |
+| **Framework principal**  | Angular 20.3.9 (frontend) + Express/Prisma (backend)  |
+| **Unit tests**           | Vitest pour frontend (10 fichiers, ~1700+ assertions) |
+| **E2E tests**            | Playwright (7 fichiers, ~45 scénarios)                |
+| **Backend tests**        | Jest (2 fichiers, ~20 tests)                          |
+| **CI/CD**                | GitHub Actions (2 workflows)                          |
+| **⚠️ GAP CRITIQUE**      | **Les tests unitaires NE SONT PAS exécutés en CI**    |
+| **⚠️ GAP CRITIQUE**      | **Les tests backend NE SONT PAS exécutés en CI**      |
+| **Coverage**             | Configuré mais non requis/vérifié en CI               |
+| **Tests de performance** | ❌ Absents                                            |
 
 **Résumé en bullets**:
+
 - ✅ Bonne couverture E2E des user stories principales (auth, articles, commentaires, social)
 - ✅ Tests unitaires bien structurés avec mocks HTTP propres
 - ⚠️ **CRITIQUE**: Seuls les tests E2E Playwright sont exécutés en pipeline CI
@@ -35,48 +36,48 @@
 
 ### 2.1 Vue d'ensemble
 
-| Type | Framework | Quantité | Emplacement | Commande | Exécuté en CI |
-|------|-----------|----------|-------------|----------|---------------|
-| **Unit tests (Frontend)** | Vitest | 10 fichiers (~1700+ tests) | `src/app/**/*.spec.ts` | `npm run test` | ❌ **NON** |
-| **E2E tests** | Playwright | 7 fichiers (~45 scénarios) | `e2e/*.spec.ts` | `npm run test:e2e` | ✅ Oui |
-| **Functional tests** | Playwright | 1 fichier (5 scénarios) | `e2e/functional.spec.ts` | `npm run test:functional` | ✅ (inclus dans e2e) |
-| **Backend unit tests** | Jest | 2 fichiers (~20 tests) | `backend/src/__tests__/*.test.js` | `npm run test` (backend) | ❌ **NON** |
-| **UI Component tests** | Vitest | 1 fichier | `src/app/.../article-comment.component.spec.ts` | `npm run test` | ❌ **NON** |
-| **Integration tests** | - | 0 | - | - | - |
-| **Performance tests** | - | 0 | - | - | - |
+| Type                      | Framework  | Quantité                   | Emplacement                                     | Commande                  | Exécuté en CI        |
+| ------------------------- | ---------- | -------------------------- | ----------------------------------------------- | ------------------------- | -------------------- |
+| **Unit tests (Frontend)** | Vitest     | 10 fichiers (~1700+ tests) | `src/app/**/*.spec.ts`                          | `npm run test`            | ❌ **NON**           |
+| **E2E tests**             | Playwright | 7 fichiers (~45 scénarios) | `e2e/*.spec.ts`                                 | `npm run test:e2e`        | ✅ Oui               |
+| **Functional tests**      | Playwright | 1 fichier (5 scénarios)    | `e2e/functional.spec.ts`                        | `npm run test:functional` | ✅ (inclus dans e2e) |
+| **Backend unit tests**    | Jest       | 2 fichiers (~20 tests)     | `backend/src/__tests__/*.test.js`               | `npm run test` (backend)  | ❌ **NON**           |
+| **UI Component tests**    | Vitest     | 1 fichier                  | `src/app/.../article-comment.component.spec.ts` | `npm run test`            | ❌ **NON**           |
+| **Integration tests**     | -          | 0                          | -                                               | -                         | -                    |
+| **Performance tests**     | -          | 0                          | -                                               | -                         | -                    |
 
 ### 2.2 Détail des fichiers de tests unitaires (Frontend)
 
-| Fichier | Scope | Tests | Type | Dépendances mockées |
-|---------|-------|-------|------|---------------------|
-| [auth.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/auth.service.spec.ts) | Auth | 4 tests | Unit | HttpClient, Router, localStorage |
-| [jwt.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/jwt.service.spec.ts) | Auth | 52 tests | Unit | localStorage |
-| [user.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/user.service.spec.ts) | Auth | 30+ tests | Unit | HttpClient, JwtService, Router |
-| [token.interceptor.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/interceptors/token.interceptor.spec.ts) | Interceptor | 2 tests | Unit | JwtService |
-| [articles.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/articles.service.spec.ts) | Articles | 18 tests | Unit | HttpClient |
-| [articles.service.http.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/articles.service.http.spec.ts) | Articles | 7 tests | Contract | HttpClient + Interceptors |
-| [comments.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/comments.service.spec.ts) | Comments | 35+ tests | Unit | HttpClient |
-| [tags.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/tags.service.spec.ts) | Tags | 50+ tests | Unit | HttpClient |
-| [profile.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/profile/services/profile.service.spec.ts) | Profile | 40+ tests | Unit | HttpClient |
-| [article-comment.component.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/components/article-comment.component.spec.ts) | UI/Component | 15 tests | Component | UserService |
+| Fichier                                                                                                                                                             | Scope        | Tests     | Type      | Dépendances mockées              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------- | --------- | -------------------------------- |
+| [auth.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/auth.service.spec.ts)                                    | Auth         | 4 tests   | Unit      | HttpClient, Router, localStorage |
+| [jwt.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/jwt.service.spec.ts)                                      | Auth         | 52 tests  | Unit      | localStorage                     |
+| [user.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/auth/services/user.service.spec.ts)                                    | Auth         | 30+ tests | Unit      | HttpClient, JwtService, Router   |
+| [token.interceptor.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/core/interceptors/token.interceptor.spec.ts)                           | Interceptor  | 2 tests   | Unit      | JwtService                       |
+| [articles.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/articles.service.spec.ts)                     | Articles     | 18 tests  | Unit      | HttpClient                       |
+| [articles.service.http.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/articles.service.http.spec.ts)           | Articles     | 7 tests   | Contract  | HttpClient + Interceptors        |
+| [comments.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/comments.service.spec.ts)                     | Comments     | 35+ tests | Unit      | HttpClient                       |
+| [tags.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/services/tags.service.spec.ts)                             | Tags         | 50+ tests | Unit      | HttpClient                       |
+| [profile.service.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/profile/services/profile.service.spec.ts)                       | Profile      | 40+ tests | Unit      | HttpClient                       |
+| [article-comment.component.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/src/app/features/article/components/article-comment.component.spec.ts) | UI/Component | 15 tests  | Component | UserService                      |
 
 ### 2.3 Détail des fichiers E2E (Playwright)
 
-| Fichier | Scope | Scénarios | Dépendances |
-|---------|-------|-----------|-------------|
-| [articles.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/articles.spec.ts) | Articles CRUD | 8 tests | Backend API, DB |
-| [auth.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/auth.spec.ts) | Authentification | 7 tests | Backend API, DB |
-| [comments.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/comments.spec.ts) | Commentaires | 9 tests | Backend API, DB |
-| [functional.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/functional.spec.ts) | Scénarios métier | 5 tests | Backend API, DB |
-| [health.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/health.spec.ts) | Smoke tests | 4 tests | Backend API |
-| [navigation.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/navigation.spec.ts) | Navigation/Filtres | 9 tests | Backend API, DB |
-| [social.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/social.spec.ts) | Follow/Profile | 6 tests | Backend API, DB |
+| Fichier                                                                                               | Scope              | Scénarios | Dépendances     |
+| ----------------------------------------------------------------------------------------------------- | ------------------ | --------- | --------------- |
+| [articles.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/articles.spec.ts)     | Articles CRUD      | 8 tests   | Backend API, DB |
+| [auth.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/auth.spec.ts)             | Authentification   | 7 tests   | Backend API, DB |
+| [comments.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/comments.spec.ts)     | Commentaires       | 9 tests   | Backend API, DB |
+| [functional.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/functional.spec.ts) | Scénarios métier   | 5 tests   | Backend API, DB |
+| [health.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/health.spec.ts)         | Smoke tests        | 4 tests   | Backend API     |
+| [navigation.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/navigation.spec.ts) | Navigation/Filtres | 9 tests   | Backend API, DB |
+| [social.spec.ts](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/e2e/social.spec.ts)         | Follow/Profile     | 6 tests   | Backend API, DB |
 
 ### 2.4 Détail des tests Backend (Jest)
 
-| Fichier | Scope | Tests | Description |
-|---------|-------|-------|-------------|
-| [auth.utils.test.js](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/backend/src/__tests__/auth.utils.test.js) | Auth | ~10 tests | Hash password, JWT sign/verify, middleware |
+| Fichier                                                                                                                                 | Scope      | Tests     | Description                                  |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------- | -------------------------------------------- |
+| [auth.utils.test.js](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/backend/src/__tests__/auth.utils.test.js)                 | Auth       | ~10 tests | Hash password, JWT sign/verify, middleware   |
 | [validation.helpers.test.js](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/backend/src/__tests__/validation.helpers.test.js) | Validation | ~10 tests | Input validation (register, login, articles) |
 
 ---
@@ -93,15 +94,16 @@
 
 ### 3.2 Workflow: `lint.yml` (Format Check)
 
-| Attribut | Valeur |
-|----------|--------|
-| **Fichier** | [.github/workflows/lint.yml](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/.github/workflows/lint.yml) |
-| **Trigger** | `push` et `pull_request` sur `main`/`master` |
-| **Runner** | `ubuntu-latest` |
-| **Node version** | 20 |
-| **Cache** | npm |
+| Attribut         | Valeur                                                                                                            |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Fichier**      | [.github/workflows/lint.yml](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/.github/workflows/lint.yml) |
+| **Trigger**      | `push` et `pull_request` sur `main`/`master`                                                                      |
+| **Runner**       | `ubuntu-latest`                                                                                                   |
+| **Node version** | 20                                                                                                                |
+| **Cache**        | npm                                                                                                               |
 
 **Étapes exécutées**:
+
 ```yaml
 1. actions/checkout@v4
 2. actions/setup-node@v4 (node: 20, cache: npm)
@@ -116,15 +118,16 @@
 
 ### 3.3 Workflow: `playwright.yml` (E2E Tests)
 
-| Attribut | Valeur |
-|----------|--------|
-| **Fichier** | [.github/workflows/playwright.yml](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/.github/workflows/playwright.yml) |
-| **Trigger** | `push` et `pull_request` sur `main`/`master` |
-| **Runner** | `ubuntu-latest` |
-| **Timeout** | 60 minutes |
-| **Variables d'env** | `DATABASE_URL=file:./dev.db`, `CI=true` |
+| Attribut            | Valeur                                                                                                                        |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Fichier**         | [.github/workflows/playwright.yml](file:///d:/Ynov/M2/Test/angular-realworld-example-app-v2/.github/workflows/playwright.yml) |
+| **Trigger**         | `push` et `pull_request` sur `main`/`master`                                                                                  |
+| **Runner**          | `ubuntu-latest`                                                                                                               |
+| **Timeout**         | 60 minutes                                                                                                                    |
+| **Variables d'env** | `DATABASE_URL=file:./dev.db`, `CI=true`                                                                                       |
 
 **Étapes exécutées**:
+
 ```yaml
 1. actions/checkout@v4
 2. actions/setup-node@v4 (node: 20, cache: npm)
@@ -189,10 +192,10 @@
 
 ### 3.5 Jobs et dépendances
 
-| Job | Dépend de | Bloque merge |
-|-----|-----------|--------------|
-| `format` (lint.yml) | - | ✅ Oui |
-| `test` (playwright.yml) | - | ✅ Oui |
+| Job                     | Dépend de | Bloque merge |
+| ----------------------- | --------- | ------------ |
+| `format` (lint.yml)     | -         | ✅ Oui       |
+| `test` (playwright.yml) | -         | ✅ Oui       |
 
 **Note**: Les deux jobs s'exécutent en parallèle (pas de dépendance entre eux).
 
@@ -215,19 +218,19 @@ export default defineConfig({
     pool: 'threads',
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],  // ⚠️ Pas de thresholds!
+      reporter: ['text', 'json', 'html'], // ⚠️ Pas de thresholds!
     },
   },
 });
 ```
 
-| Configuration | Valeur |
-|---------------|--------|
-| Environment | jsdom |
-| Pattern | `src/**/*.spec.ts` |
-| Pool | threads (parallèle) |
-| Coverage provider | v8 |
-| **Thresholds** | **❌ Non configurés** |
+| Configuration     | Valeur                |
+| ----------------- | --------------------- |
+| Environment       | jsdom                 |
+| Pattern           | `src/**/*.spec.ts`    |
+| Pool              | threads (parallèle)   |
+| Coverage provider | v8                    |
+| **Thresholds**    | **❌ Non configurés** |
 
 ---
 
@@ -241,10 +244,10 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: 1,  // Sériel pour éviter conflits
+  workers: 1, // Sériel pour éviter conflits
   reporter: 'html',
   timeout: 120000,
-  
+
   use: {
     baseURL: 'http://127.0.0.1:4200',
     trace: 'on-first-retry',
@@ -252,12 +255,12 @@ export default defineConfig({
     actionTimeout: 5000,
     navigationTimeout: 10000,
   },
-  
+
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     // Firefox/Webkit désactivés
   ],
-  
+
   webServer: {
     command: 'npm run start:full',
     url: 'http://localhost:4200',
@@ -267,13 +270,13 @@ export default defineConfig({
 });
 ```
 
-| Configuration | Local | CI |
-|---------------|-------|-----|
-| Retries | 0 | 2 |
-| Workers | 1 | 1 |
-| forbidOnly | false | true |
-| reuseExistingServer | true | false |
-| Browsers | Chromium only | Chromium only |
+| Configuration       | Local         | CI            |
+| ------------------- | ------------- | ------------- |
+| Retries             | 0             | 2             |
+| Workers             | 1             | 1             |
+| forbidOnly          | false         | true          |
+| reuseExistingServer | true          | false         |
+| Browsers            | Chromium only | Chromium only |
 
 ---
 
@@ -296,29 +299,29 @@ module.exports = {
 
 ### 5.1 Gaps Critiques (P0)
 
-| Gap | Impact | Recommandation |
-|-----|--------|----------------|
+| Gap                                    | Impact                                          | Recommandation                       |
+| -------------------------------------- | ----------------------------------------------- | ------------------------------------ |
 | **Tests unitaires non exécutés en CI** | Régressions unitaires non détectées avant merge | Ajouter `npm run test` dans pipeline |
-| **Tests backend non exécutés en CI** | Bugs backend non détectés | Ajouter job backend tests |
-| **Pas de seuil de coverage** | Coverage peut baisser sans alerte | Ajouter thresholds (ex: 70%) |
+| **Tests backend non exécutés en CI**   | Bugs backend non détectés                       | Ajouter job backend tests            |
+| **Pas de seuil de coverage**           | Coverage peut baisser sans alerte               | Ajouter thresholds (ex: 70%)         |
 
 ### 5.2 Gaps Importants (P1)
 
-| Gap | Impact | Recommandation |
-|-----|--------|----------------|
-| **Pas de tests de performance** | Régressions perf non détectées | Ajouter Lighthouse CI ou k6 |
-| **Un seul navigateur testé** | Bugs cross-browser non détectés | Activer Firefox/Safari en CI |
-| **Tests E2E sériels** | Pipeline lent (~5-10min) | Paralléliser avec sharding |
-| **1 test skipped** | `social.spec.ts` - profile update | Corriger le bug et activer le test |
+| Gap                             | Impact                            | Recommandation                     |
+| ------------------------------- | --------------------------------- | ---------------------------------- |
+| **Pas de tests de performance** | Régressions perf non détectées    | Ajouter Lighthouse CI ou k6        |
+| **Un seul navigateur testé**    | Bugs cross-browser non détectés   | Activer Firefox/Safari en CI       |
+| **Tests E2E sériels**           | Pipeline lent (~5-10min)          | Paralléliser avec sharding         |
+| **1 test skipped**              | `social.spec.ts` - profile update | Corriger le bug et activer le test |
 
 ### 5.3 Gaps Mineurs (P2)
 
-| Gap | Impact | Recommandation |
-|-----|--------|----------------|
-| **Pas de tests a11y** | Problèmes accessibilité | Ajouter axe-core ou pa11y |
-| **Pas de visual regression** | UI bugs non détectés | Ajouter Percy ou Chromatic |
-| **afterEach avec delays** | Tests potentiellement flaky | Investiguer les ressources |
-| **Pas de tests API contract** | Drift frontend/backend possible | Ajouter tests OpenAPI |
+| Gap                           | Impact                          | Recommandation             |
+| ----------------------------- | ------------------------------- | -------------------------- |
+| **Pas de tests a11y**         | Problèmes accessibilité         | Ajouter axe-core ou pa11y  |
+| **Pas de visual regression**  | UI bugs non détectés            | Ajouter Percy ou Chromatic |
+| **afterEach avec delays**     | Tests potentiellement flaky     | Investiguer les ressources |
+| **Pas de tests API contract** | Drift frontend/backend possible | Ajouter tests OpenAPI      |
 
 ### 5.4 Tests Flaky Potentiels
 
@@ -341,6 +344,7 @@ test.afterEach(async ({ context }) => {
 ### P0 - Critiques (Quick Wins)
 
 1. **Ajouter les tests unitaires dans la CI**
+
    ```yaml
    # Dans playwright.yml ou nouveau workflow unit.yml
    - name: Run Vitest unit tests
@@ -348,6 +352,7 @@ test.afterEach(async ({ context }) => {
    ```
 
 2. **Ajouter les tests backend dans la CI**
+
    ```yaml
    - name: Run backend tests
      run: cd backend && npm run test
@@ -369,6 +374,7 @@ test.afterEach(async ({ context }) => {
 ### P1 - Importants
 
 4. **Créer un workflow séparé pour les unit tests**
+
    ```yaml
    # .github/workflows/unit.yml
    name: Unit Tests
@@ -387,6 +393,7 @@ test.afterEach(async ({ context }) => {
    ```
 
 5. **Activer la parallélisation E2E avec sharding**
+
    ```yaml
    strategy:
      matrix:
@@ -432,18 +439,18 @@ npx playwright install chromium
 
 ### 7.2 Commandes de tests
 
-| Action | Commande |
-|--------|----------|
-| **Tests unitaires (watch)** | `npm run test` |
-| **Tests unitaires (UI)** | `npm run test:ui` |
-| **Tests unitaires + coverage** | `npm run test:coverage` |
-| **Tests E2E (headless)** | `npm run test:e2e` |
-| **Tests E2E (UI)** | `npm run test:e2e:ui` |
-| **Tests E2E (debug)** | `npm run test:e2e:debug` |
-| **Tests E2E (headed)** | `npm run test:e2e:headed` |
-| **Tests functional uniquement** | `npm run test:functional` |
-| **Voir rapport E2E** | `npm run test:e2e:report` |
-| **Tests backend** | `cd backend && npm run test` |
+| Action                          | Commande                     |
+| ------------------------------- | ---------------------------- |
+| **Tests unitaires (watch)**     | `npm run test`               |
+| **Tests unitaires (UI)**        | `npm run test:ui`            |
+| **Tests unitaires + coverage**  | `npm run test:coverage`      |
+| **Tests E2E (headless)**        | `npm run test:e2e`           |
+| **Tests E2E (UI)**              | `npm run test:e2e:ui`        |
+| **Tests E2E (debug)**           | `npm run test:e2e:debug`     |
+| **Tests E2E (headed)**          | `npm run test:e2e:headed`    |
+| **Tests functional uniquement** | `npm run test:functional`    |
+| **Voir rapport E2E**            | `npm run test:e2e:report`    |
+| **Tests backend**               | `cd backend && npm run test` |
 
 ### 7.3 Scripts complets disponibles (package.json)
 
@@ -509,13 +516,13 @@ npx playwright test auth.spec.ts --debug
 
 ### 8.4 Logs et traces
 
-| Type | Emplacement | Comment y accéder |
-|------|-------------|-------------------|
-| Playwright report | `playwright-report/` | `npm run test:e2e:report` |
-| Screenshots failure | `test-results/` | Ouvrir les .png |
-| Traces | `test-results/*/trace.zip` | `npx playwright show-trace` |
-| Console logs | Dans le rapport HTML | Onglet "Console" |
-| Network requests | Dans le rapport HTML | Onglet "Network" |
+| Type                | Emplacement                | Comment y accéder           |
+| ------------------- | -------------------------- | --------------------------- |
+| Playwright report   | `playwright-report/`       | `npm run test:e2e:report`   |
+| Screenshots failure | `test-results/`            | Ouvrir les .png             |
+| Traces              | `test-results/*/trace.zip` | `npx playwright show-trace` |
+| Console logs        | Dans le rapport HTML       | Onglet "Console"            |
+| Network requests    | Dans le rapport HTML       | Onglet "Network"            |
 
 ---
 
@@ -595,22 +602,22 @@ angular-realworld-example-app-v2/
 
 ## 📝 Conventions de nommage recommandées
 
-| Type | Convention | Exemple |
-|------|------------|---------|
-| Unit tests | `*.spec.ts` (collocated) | `user.service.spec.ts` |
-| E2E tests | `<feature>.spec.ts` | `articles.spec.ts` |
-| Helpers E2E | `helpers/<feature>.ts` | `helpers/auth.ts` |
-| Backend tests | `__tests__/*.test.js` | `__tests__/auth.utils.test.js` |
+| Type          | Convention               | Exemple                        |
+| ------------- | ------------------------ | ------------------------------ |
+| Unit tests    | `*.spec.ts` (collocated) | `user.service.spec.ts`         |
+| E2E tests     | `<feature>.spec.ts`      | `articles.spec.ts`             |
+| Helpers E2E   | `helpers/<feature>.ts`   | `helpers/auth.ts`              |
+| Backend tests | `__tests__/*.test.js`    | `__tests__/auth.utils.test.js` |
 
 ---
 
 ## 🏷️ Classification des tests
 
-| Type | Critères | Exemples repo |
-|------|----------|---------------|
-| **Unit** | Testé isolément avec mocks HTTP | `jwt.service.spec.ts`, `tags.service.spec.ts` |
-| **Component** | Testé avec Angular TestBed, mocks services | `article-comment.component.spec.ts` |
-| **Contract** | Vérifie format HTTP request/response | `articles.service.http.spec.ts` |
-| **E2E** | Browser réel + Backend réel + DB | `auth.spec.ts`, `articles.spec.ts` |
-| **Functional** | Scénarios métier end-to-end | `functional.spec.ts` |
-| **Smoke** | Vérification basique app fonctionne | `health.spec.ts` |
+| Type           | Critères                                   | Exemples repo                                 |
+| -------------- | ------------------------------------------ | --------------------------------------------- |
+| **Unit**       | Testé isolément avec mocks HTTP            | `jwt.service.spec.ts`, `tags.service.spec.ts` |
+| **Component**  | Testé avec Angular TestBed, mocks services | `article-comment.component.spec.ts`           |
+| **Contract**   | Vérifie format HTTP request/response       | `articles.service.http.spec.ts`               |
+| **E2E**        | Browser réel + Backend réel + DB           | `auth.spec.ts`, `articles.spec.ts`            |
+| **Functional** | Scénarios métier end-to-end                | `functional.spec.ts`                          |
+| **Smoke**      | Vérification basique app fonctionne        | `health.spec.ts`                              |
