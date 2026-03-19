@@ -48,6 +48,7 @@ yarn-error.log
 # Playwright
 /playwright-report/
 /test-results/
+/tests/selenium/.env
 
 # Duplicate workspace copy (should not be committed)
 /Angular-app-articles/

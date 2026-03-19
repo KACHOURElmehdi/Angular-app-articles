@@ -1,0 +1,8 @@
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+API listening (HTTP) on http://localhost:3000/api
+[0mGET /api/tags [32m200[0m 496.586 ms - 49[0m
+[0mGET /api/tags [32m200[0m 4.949 ms - 49[0m
+[0mGET /api/articles?limit=10&offset=0 [32m200[0m 140.232 ms - 1536[0m
+[0mPOST /api/users/login [32m200[0m 225.265 ms - 297[0m
+[0mGET /api/tags [36m304[0m 5.628 ms - -[0m
+[0mGET /api/articles?limit=10&offset=0 [36m304[0m 56.812 ms - -[0m

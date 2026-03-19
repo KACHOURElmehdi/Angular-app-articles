@@ -1,0 +1,13 @@
+[1m[33mOne or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all[39m[22m
+[1m[33mOne or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 142, kaios 3.0-3.1, op_mob 80, opera 122, opera 121, samsung 28, samsung 27[39m[22m
+[1m[33mOne or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all[39m[22m
+[1m[33mOne or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 142, kaios 3.0-3.1, op_mob 80, opera 122, opera 121, samsung 28, samsung 27[39m[22m
+^C

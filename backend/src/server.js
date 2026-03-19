@@ -40,4 +40,9 @@ const start = () => {
   });
 };
 
-start();
+// Export for integration tests (supertest) without forcing a port bind on import.
+module.exports = { app, start };
+
+if (require.main === module) {
+  start();
+}

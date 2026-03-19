@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Test Audit - angular-realworld-example-app-v2</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #111833;
+        --panel-2: #0f1530;
+        --text: #e7ecff;
+        --muted: #b8c2ff;
+        --faint: #7f8bd6;
+        --ok: #38d996;
+        --warn: #ffcc66;
+        --bad: #ff6b6b;
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        background:
+          radial-gradient(1200px 600px at 15% -10%, rgba(56, 217, 150, 0.18), transparent 60%),
+          radial-gradient(900px 500px at 105% 10%, rgba(255, 204, 102, 0.16), transparent 60%),
+          radial-gradient(700px 500px at 50% 110%, rgba(127, 139, 214, 0.18), transparent 60%), var(--bg);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: rgba(231, 236, 255, 0.4);
+        text-underline-offset: 3px;
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 18px 70px;
+      }
+
+      header {
+        padding: 22px 22px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(17, 24, 51, 0.92), rgba(15, 21, 48, 0.92));
+        box-shadow: var(--shadow);
+      }
+
+      h1 {
+        margin: 0 0 6px 0;
+        font-size: clamp(22px, 3.2vw, 34px);
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        color: var(--muted);
+      }
+
+      .pill-row {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.12);
+        font-size: 13px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--faint);
+      }
+      .dot.ok {
+        background: var(--ok);
+      }
+      .dot.warn {
+        background: var(--warn);
+      }
+      .dot.bad {
+        background: var(--bad);
+      }
+
+      section {
+        margin-top: 18px;
+        padding: 18px 22px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: rgba(17, 24, 51, 0.72);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      h2 {
+        margin: 0 0 12px 0;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+      }
+      h3 {
+        margin: 16px 0 8px 0;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      p {
+        margin: 0 0 10px 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      @media (min-width: 900px) {
+        .grid.two {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .card {
+        padding: 14px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(15, 21, 48, 0.75);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(15, 21, 48, 0.6);
+      }
+      th,
+      td {
+        padding: 10px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        vertical-align: top;
+        font-size: 13px;
+      }
+      th {
+        text-align: left;
+        color: var(--text);
+        background: rgba(0, 0, 0, 0.14);
+        letter-spacing: 0.02em;
+        font-weight: 600;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .status {
+        font-weight: 700;
+      }
+      .status.ok {
+        color: var(--ok);
+      }
+      .status.warn {
+        color: var(--warn);
+      }
+      .status.bad {
+        color: var(--bad);
+      }
+
+      code,
+      pre {
+        font-family: var(--mono);
+      }
+      pre {
+        margin: 10px 0 0 0;
+        padding: 12px 12px;
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        overflow: auto;
+        color: #eef2ff;
+        line-height: 1.55;
+        font-size: 12.5px;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      ul {
+        margin: 8px 0 0 18px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .note {
+        border-left: 3px solid rgba(255, 204, 102, 0.6);
+        padding-left: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Test Audit - angular-realworld-example-app-v2</h1>
+        <div class="meta">
+          <div><strong>Audit date:</strong> 2026-01-30</div>
+          <div>
+            <strong>Scope:</strong> Frontend (Angular + Vitest), E2E (Playwright), Backend (Express + Jest), UI
+            (Selenium), Load (k6)
+          </div>
+          <div><strong>Repo root:</strong> <code>d:\Ynov\M2\Test\angular-realworld-example-app-v2</code></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill"><span class="dot ok"></span> Vitest: PASS</span>
+          <span class="pill"><span class="dot ok"></span> Backend Jest: PASS</span>
+          <span class="pill"><span class="dot ok"></span> Selenium: PASS</span>
+          <span class="pill"><span class="dot warn"></span> CI gaps: Unit tests not in CI</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>1) Test Inventory (What Exists)</h2>
+        <p class="small">
+          This project contains multiple test layers. The table below lists the suites, file locations, and how they are
+          executed.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Framework</th>
+              <th>Files</th>
+              <th>What It Covers</th>
+              <th>Run Command</th>
+              <th>In CI?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Frontend unit</td>
+              <td>Vitest + Angular TestBed</td>
+              <td>10 spec files (<code>src/**/*.spec.ts</code>)</td>
+              <td>Services, HTTP contracts, interceptor, one component</td>
+              <td><code>npx vitest run</code></td>
+              <td><span class="status warn">No</span></td>
+            </tr>
+            <tr>
+              <td>E2E UI</td>
+              <td>Playwright</td>
+              <td>7 spec files (<code>e2e/*.spec.ts</code>)</td>
+              <td>Full user journeys (auth, articles, comments, navigation, social)</td>
+              <td><code>npm run test:e2e</code></td>
+              <td><span class="status ok">Yes</span></td>
+            </tr>
+            <tr>
+              <td>Backend unit + integration</td>
+              <td>Jest (Node)</td>
+              <td>3 test files (<code>backend/src/__tests__/*.test.js</code>)</td>
+              <td>Helper/unit tests + one API integration test (tags)</td>
+              <td><code>cd backend; npm test</code></td>
+              <td><span class="status warn">No</span></td>
+            </tr>
+            <tr>
+              <td>UI automation</td>
+              <td>Selenium WebDriver + Mocha</td>
+              <td>1 spec file (<code>tests/selenium/**/*.spec.ts</code>)</td>
+              <td>Real browser login flow (Page Object Model)</td>
+              <td><code>npm run test:selenium</code></td>
+              <td><span class="status warn">No</span></td>
+            </tr>
+            <tr>
+              <td>Load / perf (manual)</td>
+              <td>k6</td>
+              <td>4 JS files (<code>load/k6/*.js</code>)</td>
+              <td>API smoke/read/write load tests (manual)</td>
+              <td><code>npm run load:smoke</code>, <code>npm run load:read</code>, <code>npm run load:write</code></td>
+              <td><span class="status warn">No</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>

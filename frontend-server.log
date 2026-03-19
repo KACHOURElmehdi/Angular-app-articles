@@ -1,0 +1,37 @@
+
+> angular-realworld@0.0.0 start
+> ng serve --proxy-config proxy.conf.json
+
+[33m>[39m Building...
+[32m√[39m Building...
+[1mInitial chunk files[22m                    [2m | [22m[1mNames[22m                      [2m | [22m[1mRaw size[22m
+[32mmain.js[39m                                [2m | [22m[2mmain[22m                       [2m | [22m[36m16.95 kB[39m[2m | [22m
+[32mchunk-VFIDU5KR.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m5.00 kB[39m[2m | [22m
+[32mchunk-5PXYC7AG.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m2.19 kB[39m[2m | [22m
+[32mpolyfills.js[39m                           [2m | [22m[2mpolyfills[22m                  [2m | [22m[36m95 bytes[39m[2m | [22m
+[32mstyles.css[39m                             [2m | [22m[2mstyles[22m                     [2m | [22m[36m95 bytes[39m[2m | [22m
+
+[1m [22m                                      [2m | [22m[1mInitial total[22m              [2m | [22m[1m24.33 kB[22m
+
+[1mLazy chunk files[22m                       [2m | [22m[1mNames[22m                      [2m | [22m[1mRaw size[22m
+[32marticle.component-OLD2LVCP.js[39m          [2m | [22m[2marticle-component[22m          [2m | [22m[36m33.48 kB[39m[2m | [22m
+[32mchunk-SX7LZJWD.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m[36m13.61 kB[39m[2m | [22m
+[32mhome.component-LQWIIMHE.js[39m             [2m | [22m[2mhome-component[22m             [2m | [22m[36m11.74 kB[39m[2m | [22m
+[32meditor.component-TNRVMBBO.js[39m           [2m | [22m[2meditor-component[22m           [2m | [22m[36m11.29 kB[39m[2m | [22m
+[32mauth.component-5WXVWIYD.js[39m             [2m | [22m[2mauth-component[22m             [2m | [22m[36m10.38 kB[39m[2m | [22m
+[32mprofile.routes-3UNP5KO4.js[39m             [2m | [22m[2mprofile-routes[22m             [2m | [22m[36m10.04 kB[39m[2m | [22m
+[32msettings.component-F6GL6RT6.js[39m         [2m | [22m[2msettings-component[22m         [2m | [22m [36m9.10 kB[39m[2m | [22m
+[32mchunk-XN6NJV2T.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m9.05 kB[39m[2m | [22m
+[32mchunk-7TYL7C2Q.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m4.99 kB[39m[2m | [22m
+[32mprofile-favorites.component-WYBQ7DIM.js[39m[2m | [22m[2mprofile-favorites-component[22m[2m | [22m [36m3.46 kB[39m[2m | [22m
+[32mprofile-articles.component-EJS7FR7S.js[39m [2m | [22m[2mprofile-articles-component[22m [2m | [22m [36m3.43 kB[39m[2m | [22m
+[32mchunk-2T4H2MU6.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m3.28 kB[39m[2m | [22m
+[32mchunk-TOPPMZJY.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m2.10 kB[39m[2m | [22m
+[32mchunk-HAKFDXTY.js[39m                      [2m | [22m[2m-[22m                          [2m | [22m [36m1.55 kB[39m[2m | [22m
+
+Application bundle generation complete. [25.163 seconds] - 2026-01-30T10:50:21.073Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+[2m11:50:23 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m Re-optimizing dependencies because lockfile has changed
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
